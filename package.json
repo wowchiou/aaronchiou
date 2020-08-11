@@ -22,8 +22,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "create-heroku": "heroku create aaronchiou --buildpack mars/create-react-app",
     "remote-git": "git remote add origin https://github.com/wowchiou/aaronchiou.git",
-    "remote-heroku": "heroku create aaronchiou --buildpack mars/create-react-app",
+    "remote-heroku": "heroku git:remote -a aaronchiou",
     "push-git": "git push -u origin master",
     "push-heroku": "git push heroku master",
     "heroku-open": "heroku open"
