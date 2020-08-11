@@ -23,9 +23,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "remote-git": "git remote add origin https://github.com/wowchiou/aaronchiou.git",
-    "remote-heroku": "heroku create -b https://github.com/wowchiou/aaronchiou.git",
+    "remote-heroku": "heroku create aaronchiou --buildpack mars/create-react-app",
     "push-git": "git push -u origin master",
-    "push-heroku": "git push heroku master"
+    "push-heroku": "git push heroku master",
+    "heroku-open": "heroku open"
   },
   "eslintConfig": {
     "extends": "react-app"
