@@ -1,0 +1,49 @@
+/*push*/
+.app-push-enter {
+  opacity: 0.5;
+  transform: translateX(100%);
+  overflow: hidden;
+}
+
+.app-push-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 500ms ease;
+  overflow: hidden;
+}
+
+.app-push-exit {
+  opacity: 1;
+  transform: translateX(0);
+  overflow: hidden;
+}
+
+.app-push-exit-active {
+  opacity: 0.5;
+  transform: translateX(-100%);
+  transition: all 500ms ease;
+  overflow: inherit;
+}
+
+/*pop*/
+.app-pop-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.app-pop-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 500ms ease;
+}
+
+.app-pop-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.app-pop-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 500ms ease;
+}
