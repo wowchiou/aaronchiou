@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { GlobalStyles } from './GlobalStyles';
+import { GlobalStyles, ResetStyles } from './GlobalStyles';
 
 import './transition-style.css';
 
@@ -15,6 +15,7 @@ import Contact from './containers/Contact/Contact';
 const App = ({ className, location, history }) => {
   return (
     <div className={`app ${className}`}>
+      <ResetStyles />
       <GlobalStyles />
       <header className="app_header">
         <Navigation />
@@ -51,7 +52,6 @@ const AppStyle = styled(App)`
   font-size: 2rem;
   position: relative;
   overflow: hidden;
-
   .app_header {
     display: inline-block;
     position: fixed;
@@ -61,7 +61,6 @@ const AppStyle = styled(App)`
     box-sizing: border-box;
     z-index: 100;
   }
-
   .app_wrapper {
     min-height: 100vh;
   }

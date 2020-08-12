@@ -30,7 +30,7 @@ const IndexStyle = styled(Index)`
   top: 0;
   left: 0;
   width: 100%;
-
+  background-color: #efefef;
   .index_content {
     display: flex;
     justify-content: center;
@@ -40,7 +40,6 @@ const IndexStyle = styled(Index)`
     left: 5rem;
     transform: translate(0, -50%);
   }
-
   @media ${({ theme }) => theme.device.mobile} {
     .index_content {
       top: 40%;
@@ -49,28 +48,23 @@ const IndexStyle = styled(Index)`
       width: 90%;
     }
   }
-
   .index_text {
     font-size: 3.5rem;
     font-weight: 600;
     letter-spacing: 1px;
-
     p {
       line-height: 1.7;
     }
-
     span {
       color: ${({ theme }) => theme.color.secondary};
       vertical-align: baseline;
     }
   }
-
   @media ${({ theme }) => theme.device.mobile} {
     .index_text {
       font-size: 2.5rem;
     }
   }
-
   .index_pic {
     max-width: 300px;
     position: relative;
