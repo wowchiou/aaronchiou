@@ -10,6 +10,7 @@ const Input = (props) => {
     errors,
     errMessage,
     register,
+    className,
   } = props;
 
   const inputRenderer = () => {
@@ -33,10 +34,10 @@ const Input = (props) => {
   const inputContent = inputRenderer();
 
   return (
-    <div>
+    <div className={`input_wrap ${className}`}>
       <label>
         {label}
-        {errors && <span>{errMessage}</span>}
+        {errors[name] && <span>{errMessage}</span>}
       </label>
       {inputContent || <p>Something was wrong!</p>}
     </div>
@@ -44,6 +45,9 @@ const Input = (props) => {
 };
 
 const InputStyle = styled(Input)`
+  &:not(:first-child) {
+    margin-top: 1.5rem;
+  }
   label {
     margin-bottom: 0.5rem;
     font-weight: 600;
