@@ -1,19 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import { apiPostSendMail } from '../../shared/service';
+import ReactLoading from 'react-loading';
 
-import Button from '../../components/UI/Button/Button';
 import ContactForm from '../../components/ContactForm/ContactForm';
+import Button from '../../components/UI/Button/Button';
+import Modal from '../../components/UI/Modal/Modal';
+import ModalDefault from '../../components/UI/Modal/ModalDefault';
 
 const Contact = ({ className }) => {
-  const { handleSubmit, register, errors, watch } = useForm();
+  const { handleSubmit, register, errors, watch, reset } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [modalStatus, setModalStatus] = useState(null);
 
-  const sendHandler = () => {
-    console.log('button clicked');
+  const closeModalHandler = () => {
+    setModalStatus(null);
+  };
+
+  const sendHandler = async (data) => {
+    setLoading(true);
+    try {
+      const res = await apiPostSendMail(data);
+      reset();
+      console.log(res);
+      setLoading(false);
+      setModalStatus({
+        head: '信件寄出成功',
+        body: 'mail 已寄出，感謝您的來信，我將盡速回信於您！',
+        footer: [{ text: '確認', clicked: closeModalHandler }],
+      });
+    } catch (err) {
+      console.error(err.response);
+      setLoading(false);
+      setModalStatus({
+        head: '信件寄出錯誤',
+        body: 'mail 尚未寄出，請稍後再試！',
+        footer: [{ text: '確認', clicked: closeModalHandler }],
+      });
+    }
   };
 
   return (
     <div className={`contact ${className}`}>
+      {modalStatus && (
+        <Modal show={modalStatus} clicked={closeModalHandler}>
+          <ModalDefault {...modalStatus} />
+        </Modal>
+      )}
       <div className="contact_wrap">
         <div className="contact_group">
           <h1>CONTACT ME</h1>
@@ -29,7 +63,17 @@ const Contact = ({ className }) => {
         <div className="contact_group">
           <form onSubmit={handleSubmit(sendHandler)}>
             <ContactForm register={register} errors={errors} watch={watch} />
-            <Button clicked={sendHandler}>SEND</Button>
+            <div className="btns">
+              <Button>SEND</Button>
+              {loading && (
+                <ReactLoading
+                  type="spin"
+                  color="#fff"
+                  height="3.5rem"
+                  width="3.5rem"
+                />
+              )}
+            </div>
           </form>
         </div>
       </div>
@@ -100,6 +144,15 @@ const ContactStyle = styled(Contact)`
     flex: 1;
     @media ${({ theme }) => theme.device.mobile} {
       padding-left: 0;
+    }
+  }
+  .btns {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    button {
+      margin-right: 1rem;
     }
   }
 `;

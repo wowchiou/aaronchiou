@@ -5,10 +5,9 @@ import CanvasText from '../../components/CanvasText/CanvasText';
 import personalPhoto from '../../assets/images/ac-photo.jpg';
 
 const Index = ({ className }) => {
-  console.log('Index');
   return (
     <div className={`index ${className}`}>
-      <CanvasText />
+      {/* <CanvasText /> */}
       <div className="index_content">
         <div className="index_text">
           <p>
@@ -30,6 +29,7 @@ const IndexStyle = styled(Index)`
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 100vh;
   background-color: #efefef;
   .index_content {
     display: flex;

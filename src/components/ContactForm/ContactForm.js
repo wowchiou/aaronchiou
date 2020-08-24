@@ -8,7 +8,7 @@ const ContactForm = ({ register, errors }) => {
       type: 'text',
       valid: {
         required: true,
-        min: 2,
+        minLength: 2,
       },
       placeholder: 'Your Name',
       errMessage: '請填寫最少兩個字元的名字',

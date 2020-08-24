@@ -60,10 +60,8 @@ export const GlobalStyles = createGlobalStyle`
   }
   html {
     font-size: 62.5%;
-  }
-  @media ${({ theme }) => theme.device.mobile} {
-    html {
-      font-size: 50%;
+    @media ${({ theme }) => theme.device.mobile} {
+        font-size: 50%;
     }
   }
   body {
@@ -115,5 +113,14 @@ export const GlobalStyles = createGlobalStyle`
   label {
     font-size: 2rem;
     display: block;
+  }
+  #global-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100vh;
+    overflow: auto;
+    z-index: 900;
   }
 `;
