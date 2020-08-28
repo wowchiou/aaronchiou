@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 export const devBaseUrl = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:8080'
+      : 'https://aaronchiou-back-end.herokuapp.com/',
   headers: {
     'Content-Type': 'application/json',
   },

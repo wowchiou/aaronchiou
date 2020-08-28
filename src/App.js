@@ -14,6 +14,7 @@ import Contact from './containers/Contact/Contact';
 import News from './containers/News/News';
 
 const App = ({ className, location, history }) => {
+  console.log(process.env.NODE_ENV);
   return (
     <div className={`app ${className}`}>
       <ResetStyles />
