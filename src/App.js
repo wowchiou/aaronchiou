@@ -11,6 +11,7 @@ import Index from './containers/Index/Index';
 import Skill from './containers/Skill/Skill';
 import Play from './containers/Play/Play';
 import Contact from './containers/Contact/Contact';
+import News from './containers/News/News';
 
 const App = ({ className, location, history }) => {
   return (
@@ -37,7 +38,8 @@ const App = ({ className, location, history }) => {
             <Switch location={location}>
               <Route path="/skill" component={Skill} />
               <Route path="/play" component={Play} />
-              <Route path="/Contact" component={Contact} />
+              <Route path="/news" component={News} />
+              <Route path="/contact" component={Contact} />
               <Route path="/" exact component={Index} />
               <Redirect to="/" />
             </Switch>

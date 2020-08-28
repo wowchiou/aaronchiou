@@ -11,8 +11,8 @@ const Button = React.memo(({ clicked, children, className }) => {
 
 const ButtonStyle = styled(Button)`
   background-color: ${({ theme }) => theme.color.secondary};
-  color: #fff;
   border: none;
+  color: #fff;
   outline: none;
   font-size: 2rem;
   font-weight: 500;
@@ -20,6 +20,11 @@ const ButtonStyle = styled(Button)`
   font-family: 'Noto Sans TC';
   cursor: pointer;
   letter-spacing: 1.2px;
+  transition: 0.3s;
+  border-radius: 0.5rem;
+  &:active {
+    opacity: 0.5;
+  }
 `;
 
 export default ButtonStyle;

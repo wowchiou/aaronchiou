@@ -12,3 +12,9 @@ export const apiPostSendMail = async (data) => {
   const response = await devBaseUrl.post('/feed/postSendMail', data);
   return response;
 };
+
+// get news data
+export const getNews = async () => {
+  const response = await devBaseUrl.get('/feed/getNews');
+  return response;
+};

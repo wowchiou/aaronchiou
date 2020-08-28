@@ -11,6 +11,7 @@ const Navigation = ({ className }) => {
       </NavigationItem>
       <NavigationItem link="/skill">Skill</NavigationItem>
       <NavigationItem link="/play">Play</NavigationItem>
+      <NavigationItem link="/news">News</NavigationItem>
       <NavigationItem link="/contact">Contact</NavigationItem>
     </ul>
   );
@@ -23,19 +24,15 @@ const NavigationStyle = styled(Navigation)`
   font-size: 2rem;
   font-weight: 900;
   line-height: 1;
-
   li {
     position: relative;
   }
-
   li + li {
     margin-left: 2rem;
   }
-
   li .active {
     color: ${({ theme }) => theme.color.secondary};
   }
-
   li:not(:first-child)::after {
     position: absolute;
     content: '';
@@ -47,7 +44,6 @@ const NavigationStyle = styled(Navigation)`
     left: -1rem;
     background-color: ${({ theme }) => theme.color.primary};
   }
-
   li:active {
     -webkit-text-stroke: 1px;
     -webkit-text-fill-color: transparent;

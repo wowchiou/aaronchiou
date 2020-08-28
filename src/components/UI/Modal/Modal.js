@@ -65,6 +65,7 @@ const ModalStyle = styled(Modal)`
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 0.5rem;
   }
   .container {
     background-color: #fff;
