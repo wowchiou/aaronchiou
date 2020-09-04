@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { GlobalStyles, ResetStyles } from './GlobalStyles';
 
 import './transition-style.css';
@@ -14,7 +14,7 @@ import Contact from './containers/Contact/Contact';
 import News from './containers/News/News';
 
 const App = ({ className, location, history }) => {
-  console.log(process.env.NODE_ENV);
+  // console.log(process.env.NODE_ENV);
   return (
     <div className={`app ${className}`}>
       <ResetStyles />
@@ -23,7 +23,7 @@ const App = ({ className, location, history }) => {
         <Navigation />
       </header>
       <main className="app_wrapper">
-        <TransitionGroup
+        {/* <TransitionGroup
           style={{ position: 'releative' }}
           childFactory={(child) =>
             React.cloneElement(child, {
@@ -35,17 +35,17 @@ const App = ({ className, location, history }) => {
             key={location.pathname}
             classNames={history.action === 'PUSH' ? 'app-push' : 'app-pop'}
             timeout={1000}
-          >
-            <Switch location={location}>
-              <Route path="/skill" component={Skill} />
-              <Route path="/play" component={Play} />
-              <Route path="/news" component={News} />
-              <Route path="/contact" component={Contact} />
-              <Route path="/" exact component={Index} />
-              <Redirect to="/" />
-            </Switch>
-          </CSSTransition>
-        </TransitionGroup>
+          > */}
+        <Switch location={location}>
+          <Route path="/skill" component={Skill} />
+          <Route path="/play" component={Play} />
+          <Route path="/news" component={News} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/" exact component={Index} />
+          <Redirect to="/" />
+        </Switch>
+        {/* </CSSTransition>
+        </TransitionGroup> */}
       </main>
     </div>
   );

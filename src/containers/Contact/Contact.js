@@ -23,7 +23,6 @@ const Contact = ({ className }) => {
     try {
       const res = await apiPostSendMail(data);
       reset();
-      console.log(res);
       setLoading(false);
       setModalStatus({
         head: '信件寄出成功',
@@ -31,7 +30,6 @@ const Contact = ({ className }) => {
         footer: [{ text: '確認', clicked: closeModalHandler }],
       });
     } catch (err) {
-      console.error(err.response);
       setLoading(false);
       setModalStatus({
         head: '信件寄出錯誤',
