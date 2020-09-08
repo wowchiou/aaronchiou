@@ -48,6 +48,15 @@ const News = ({ className }) => {
 
 const NewsStyle = styled(News)`
   background-color: #fff;
+  position: relative;
+  @media ${({ theme }) => theme.device.mobile} {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
   .loading {
     position: fixed;
     width: 100%;

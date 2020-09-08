@@ -31,6 +31,7 @@ const NewsCardStyle = styled(NewsCard)`
   position: relative;
   @media ${({ theme }) => theme.device.mobile} {
     height: 35vh;
+    scroll-snap-align: start;
   }
   .content {
     position: absolute;

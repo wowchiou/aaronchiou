@@ -80,7 +80,8 @@ const Contact = ({ className }) => {
 };
 
 const ContactStyle = styled(Contact)`
-  background-color: #ff990050;
+  /* background-color: #ff990050; */
+  background-color: #222;
   min-height: 100vh;
   display: flex;
   justify-content: center;

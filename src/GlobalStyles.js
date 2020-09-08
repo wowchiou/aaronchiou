@@ -96,17 +96,20 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
   ::-webkit-input-placeholder {
-    color: rgba(0, 0, 0, .3);
+    /* color: rgba(0, 0, 0, .3); */
+    color: ${({ theme }) => theme.color.primary};
     font-size: 2rem;
     font-family: 'Noto Sans TC'
   }
   :-ms-input-placeholder{
-    color: rgba(0, 0, 0, .3);
+    /* color: rgba(0, 0, 0, .3); */
+    color: ${({ theme }) => theme.color.primary};
     font-size: 2rem;
     font-family: 'Noto Sans TC'
   }
   ::placeholder {
-    color: rgba(0, 0, 0, .3);
+    /* color: rgba(0, 0, 0, .3); */
+    color: ${({ theme }) => theme.color.primary};
     font-size: 2rem;
     font-family: 'Noto Sans TC'
   }
