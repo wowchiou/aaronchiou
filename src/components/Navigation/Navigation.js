@@ -9,7 +9,6 @@ const Navigation = ({ className }) => {
       <NavigationItem link="/" exact>
         About
       </NavigationItem>
-      {/* <NavigationItem link="/skill">Skill</NavigationItem> */}
       <NavigationItem link="/play">Play</NavigationItem>
       <NavigationItem link="/contact">Contact</NavigationItem>
     </ul>

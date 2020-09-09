@@ -88,7 +88,7 @@ const ContactStyle = styled(Contact)`
   align-items: center;
   color: #fff;
   font-size: 4rem;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;

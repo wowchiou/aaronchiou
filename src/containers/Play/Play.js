@@ -85,7 +85,7 @@ const PlayStyle = styled(Play)`
   min-height: 100vh;
   background-color: #222;
   color: #fff;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
