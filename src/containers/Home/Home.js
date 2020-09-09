@@ -10,7 +10,6 @@ import Index from '../Index/Index';
 import Skill from '../Skill/Skill';
 import Play from '../Play/Play';
 import Contact from '../Contact/Contact';
-import News from '../News/News';
 
 const Home = ({ className, location, history }) => {
   // console.log(process.env.NODE_ENV);
@@ -36,7 +35,6 @@ const Home = ({ className, location, history }) => {
         <Switch location={location}>
           {/* <Route path="/skill" component={Skill} /> */}
           <Route path="/play" component={Play} />
-          <Route path="/news" component={News} />
           <Route path="/contact" component={Contact} />
           <Route path="/" exact component={Index} />
           <Redirect to="/" />

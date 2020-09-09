@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactLoading from 'react-loading';
 
-import { getNews } from '../../shared/service';
-import NewsCard from '../../components/NewsCard/NewsCard';
+import { getNews } from '../../../shared/service';
+import NewsCard from '../../../components/NewsCard/NewsCard';
 
 const News = ({ className }) => {
   const [news, setNews] = useState([]);
@@ -47,7 +47,7 @@ const News = ({ className }) => {
 };
 
 const NewsStyle = styled(News)`
-  background-color: #fff;
+  background-color: #222;
   position: relative;
   @media ${({ theme }) => theme.device.mobile} {
     height: 100vh;
@@ -63,7 +63,7 @@ const NewsStyle = styled(News)`
     height: 100vh;
     top: 0;
     left: 0;
-    background-color: #fff;
+    background-color: #222;
     z-index: 1;
     display: flex;
     justify-content: center;

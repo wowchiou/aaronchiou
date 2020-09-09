@@ -11,7 +11,6 @@ const Navigation = ({ className }) => {
       </NavigationItem>
       {/* <NavigationItem link="/skill">Skill</NavigationItem> */}
       <NavigationItem link="/play">Play</NavigationItem>
-      <NavigationItem link="/news">News</NavigationItem>
       <NavigationItem link="/contact">Contact</NavigationItem>
     </ul>
   );
@@ -21,7 +20,7 @@ const NavigationStyle = styled(Navigation)`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 900;
   line-height: 1;
   li {

@@ -1,34 +1,42 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+import Fade from 'react-reveal/Fade';
 import styled from 'styled-components';
+
+import img_news from '../../assets/images/play/play-news.jpg';
 
 const playList = [
   {
-    img: 'https://tympanus.net/Development/HoverEffectIdeas/img/1.jpg',
-    url: '/playa',
-    title: 'PLAYA',
-    skill: ['JQUERY', 'CREATEJS', 'NODEJS'],
+    img: img_news,
+    date: '202008',
+    url: '/news',
+    title: 'news',
+    skill: ['react', 'css:scroll-snap-type', 'nodejs'],
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/2.jpg',
+    date: '202008',
     url: '/playa',
     title: 'PLAYA',
     skill: ['JQUERY', 'CREATEJS', 'NODEJS'],
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/3.jpg',
+    date: '202008',
     url: '/playa',
     title: 'PLAYA',
     skill: ['JQUERY', 'CREATEJS', 'NODEJS'],
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg',
+    date: '202008',
     url: '/playa',
     title: 'PLAYA',
     skill: ['JQUERY', 'CREATEJS', 'NODEJS'],
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/5.jpg',
+    date: '202008',
     url: '/playa',
     title: 'PLAYA',
     skill: ['JQUERY', 'CREATEJS', 'nodejs'],
@@ -41,24 +49,32 @@ const Play = ({ className }) => {
     <div className={`play ${className}`}>
       <ul className="list">
         {playList.map((itm, idx) => (
-          <li key={itm.title} className="item">
-            <Link
-              className="link"
-              to={`${url}${itm.url}`}
-              style={{
-                backgroundImage: `url(${itm.img})`,
-              }}
-            >
-              <div class="content">
-                <p class="title">{itm.title.toUpperCase()}</p>
-                <p class="text">
-                  {itm.skill.map((s) => (
-                    <span key={s}>{s.toUpperCase()}</span>
-                  ))}
-                </p>
-              </div>
-            </Link>
-          </li>
+          <Fade key={itm.title + idx} bottom>
+            <li className="item">
+              <Link
+                className="link"
+                to={`${url}${itm.url}`}
+                style={{
+                  backgroundImage: `url(${itm.img})`,
+                }}
+              >
+                <div className="content">
+                  <p className="title">
+                    {itm.title.toUpperCase()}
+                    <span>{itm.date}</span>
+                  </p>
+                  <p className="text">
+                    {itm.skill.map((s) => (
+                      <span key={s}>{s.toUpperCase()}</span>
+                    ))}
+                  </p>
+                </div>
+              </Link>
+              <Fade right delay={100} duration={500}>
+                <span className="deco" />
+              </Fade>
+            </li>
+          </Fade>
         ))}
       </ul>
     </div>
@@ -67,7 +83,6 @@ const Play = ({ className }) => {
 
 const PlayStyle = styled(Play)`
   min-height: 100vh;
-  /* background-color: #00559930; */
   background-color: #222;
   color: #fff;
   position: absolute;
@@ -75,6 +90,7 @@ const PlayStyle = styled(Play)`
   left: 0;
   width: 100%;
   padding: 8rem 0;
+  overflow: hidden;
   .list {
     max-width: 1000px;
     width: 90%;
@@ -83,31 +99,23 @@ const PlayStyle = styled(Play)`
     justify-content: start;
     align-items: stretch;
     flex-wrap: wrap;
+    padding-bottom: 0.5rem;
     @media ${({ theme }) => theme.device.mobile} {
       max-width: 480px;
+      padding: 0 0.5rem 0.5rem 0;
     }
   }
   .item {
     width: 48%;
     max-width: 480px;
     height: 0;
-    padding-bottom: 36%;
+    padding-bottom: 27%;
     position: relative;
     &:nth-child(even) {
-      margin-left: 4%;
+      margin-left: calc(4% - 0.5rem);
     }
     &:nth-child(1n + 3) {
       margin-top: 4%;
-    }
-    &::before {
-      position: absolute;
-      content: '';
-      width: 100%;
-      height: 100%;
-      right: -0.5rem;
-      bottom: -0.5rem;
-      background-color: ${({ theme }) => theme.color.secondary};
-      opacity: 0.9;
     }
     @media ${({ theme }) => theme.device.upMobile} {
       &:hover {
@@ -129,7 +137,7 @@ const PlayStyle = styled(Play)`
     }
     @media ${({ theme }) => theme.device.mobile} {
       width: 100%;
-      padding-bottom: 75%;
+      padding-bottom: 56.25%;
       &:nth-child(even) {
         margin-left: 0;
       }
@@ -140,6 +148,16 @@ const PlayStyle = styled(Play)`
         margin-top: 5%;
       }
     }
+  }
+  .deco {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: -0.5rem;
+    bottom: -0.5rem;
+    background-color: ${({ theme }) => theme.color.secondary};
+    opacity: 0.9;
   }
   .link {
     position: absolute;
@@ -191,6 +209,12 @@ const PlayStyle = styled(Play)`
     transition: 0.3s;
     position: relative;
     z-index: 1;
+    span {
+      display: block;
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
   }
   .text {
     position: absolute;
@@ -210,7 +234,7 @@ const PlayStyle = styled(Play)`
       display: block;
       text-align: right;
       & + span {
-        margin-top: 0.5rem;
+        margin-top: 0.8rem;
       }
     }
   }

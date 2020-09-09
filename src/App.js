@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { GlobalStyles, ResetStyles } from './GlobalStyles';
 
 import Home from './containers/Home/Home';
-import PlayA from './containers/Play/PlayA/PlayA';
+import News from './containers/Play/News/News';
 
 const playList = [
   {
-    url: '/playa',
-    component: PlayA,
+    url: '/news',
+    component: News,
   },
 ];
 
