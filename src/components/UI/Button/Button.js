@@ -14,14 +14,14 @@ const ButtonStyle = styled(Button)`
   border: none;
   color: #fff;
   outline: none;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 500;
   padding: 0.5rem 2rem;
   font-family: 'Noto Sans TC';
   cursor: pointer;
   letter-spacing: 1.2px;
   transition: 0.3s;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   &:active {
     opacity: 0.5;
   }

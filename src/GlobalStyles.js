@@ -88,27 +88,24 @@ export const GlobalStyles = createGlobalStyle`
     letter-spacing: 0.5px;
     display: block;
     width: 100%;
-    border-radius: 0.5rem;
+    border-radius: 0.2rem;
     font-family: 'Noto Sans TC';
+    outline: none;
     &:focus {
       border: 1px solid ${({ theme }) => theme.color.primary};
-      outline: none;
     }
   }
   ::-webkit-input-placeholder {
-    /* color: rgba(0, 0, 0, .3); */
     color: ${({ theme }) => theme.color.primary};
     font-size: 2rem;
     font-family: 'Noto Sans TC'
   }
   :-ms-input-placeholder{
-    /* color: rgba(0, 0, 0, .3); */
     color: ${({ theme }) => theme.color.primary};
     font-size: 2rem;
     font-family: 'Noto Sans TC'
   }
   ::placeholder {
-    /* color: rgba(0, 0, 0, .3); */
     color: ${({ theme }) => theme.color.primary};
     font-size: 2rem;
     font-family: 'Noto Sans TC'

@@ -7,7 +7,7 @@ export const theme = {
     orange: '#FF8000',
   },
   device: {
-    mobile: `(max-width: ${768 / 16}em)`,
+    mobile: `(max-width: ${1024 / 16}em)`,
     upMobile: `(min-width: ${768 / 16 + 1}em)`,
   },
 };

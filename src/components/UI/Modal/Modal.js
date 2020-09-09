@@ -32,7 +32,7 @@ const Modal = (props) => {
 const ModalStyle = styled(Modal)`
   width: 100%;
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(2, 2, 2, 0.8);
   position: relative;
   .closeBtn {
     position: absolute;
@@ -68,7 +68,8 @@ const ModalStyle = styled(Modal)`
     border-radius: 0.5rem;
   }
   .container {
-    background-color: #fff;
+    background-color: rgba(2, 2, 2, 0.8);
+    border: 2px solid ${({ theme }) => theme.color.secondary};
     width: 100%;
     padding: 3rem;
     font-size: 2rem;
