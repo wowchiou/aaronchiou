@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import CanvasText from '../../components/CanvasText/CanvasText';
 import personalPhoto from '../../assets/images/ac-photo.jpg';
 
-const Index = ({ className }) => {
+const About = ({ className }) => {
   return (
-    <div className={`index ${className}`}>
+    <div className={`about ${className}`}>
       {/* <CanvasText /> */}
-      <div className="index_content">
-        <div className="index_text">
+      <div className="about_content">
+        <div className="about_text">
           <p>
             Hi, I'm <span>Aaron Chiou,</span>
           </p>
@@ -24,14 +24,14 @@ const Index = ({ className }) => {
   );
 };
 
-const IndexStyle = styled(Index)`
+const AboutStyle = styled(About)`
   position: relative;
   top: 0;
   left: 0;
   width: 100%;
   min-height: 100vh;
   background-color: #efefef;
-  .index_content {
+  .about_content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,14 +41,14 @@ const IndexStyle = styled(Index)`
     transform: translate(0, -50%);
   }
   @media ${({ theme }) => theme.device.mobile} {
-    .index_content {
+    .about_content {
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 90%;
     }
   }
-  .index_text {
+  .about_text {
     font-size: 3.5rem;
     font-weight: 600;
     letter-spacing: 1px;
@@ -61,11 +61,11 @@ const IndexStyle = styled(Index)`
     }
   }
   @media ${({ theme }) => theme.device.mobile} {
-    .index_text {
+    .about_text {
       font-size: 2.5rem;
     }
   }
-  .index_pic {
+  .about_pic {
     max-width: 300px;
     position: relative;
     top: 2rem;
@@ -75,4 +75,4 @@ const IndexStyle = styled(Index)`
   }
 `;
 
-export default IndexStyle;
+export default AboutStyle;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import Navigation from '../../components/Navigation/Navigation';
-import Index from '../Index/Index';
+import About from '../About/About';
 import Play from '../Play/Play';
 import Contact from '../Contact/Contact';
 
@@ -32,7 +32,7 @@ const Home = ({ className, location, history }) => {
             <Switch location={location}>
               <Route path="/play" component={Play} />
               <Route path="/contact" component={Contact} />
-              <Route path="/" exact component={Index} />
+              <Route path="/" exact component={About} />
               <Redirect to="/" />
             </Switch>
           </CSSTransition>
