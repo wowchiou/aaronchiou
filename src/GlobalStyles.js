@@ -80,6 +80,7 @@ export const GlobalStyles = createGlobalStyle`
   input[type=email],
   input[type=phone],
   input[type=number],
+  input[type=password],
   textarea {
     border: 1px solid ${({ theme }) => theme.color.secondary};
     background-color: transparent;

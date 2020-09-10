@@ -8,7 +8,12 @@ const NewsCard = (props) => {
       className={`newsCard ${className}`}
       style={{ backgroundImage: `url('${urlToImage}')` }}
     >
-      <a href={url} target="_blank" className="content">
+      <a
+        href={url}
+        target="_blank"
+        className="content"
+        rel="noopener noreferrer"
+      >
         <div className="wrap">
           <h2 className="title">{title}</h2>
           <p className="description">{description}</p>

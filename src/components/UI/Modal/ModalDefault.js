@@ -20,6 +20,7 @@ const ModalDefault = (props) => {
 };
 
 const ModalDefaultStyle = styled(ModalDefault)`
+  line-height: 1.33;
   .head {
     font-size: 2.4rem;
     font-weight: 600;

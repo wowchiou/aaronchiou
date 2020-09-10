@@ -9,7 +9,7 @@ import img_pokemonChat from '../../assets/images/play/play-pokemonChat.jpg';
 const playList = [
   {
     img: img_news,
-    date: '202008',
+    date: '2020-08',
     url: '/news',
     title: 'news',
     skill: ['react', 'nodejs', 'scroll-snap-type'],
@@ -17,7 +17,7 @@ const playList = [
   },
   {
     img: img_pokemonChat,
-    date: '202002',
+    date: '2020-02',
     url: 'https://pokemon-chat.herokuapp.com/',
     title: 'pokemonchat',
     skill: ['JQUERY', 'socketio', 'nodejs'],
@@ -25,15 +25,15 @@ const playList = [
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/3.jpg',
-    date: '202008',
-    url: '/playa',
-    title: 'PLAYA',
-    skill: ['JQUERY', 'CREATEJS', 'NODEJS'],
+    date: '2020-09',
+    url: '/todolist',
+    title: 'todo list',
+    skill: ['redux', 'nodejs', 'firebase'],
     type: 'self',
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg',
-    date: '202008',
+    date: '2020-08',
     url: '/playa',
     title: 'PLAYA',
     skill: ['JQUERY', 'CREATEJS', 'NODEJS'],
@@ -41,7 +41,7 @@ const playList = [
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/5.jpg',
-    date: '202008',
+    date: '2020-08',
     url: '/playa',
     title: 'PLAYA',
     skill: ['JQUERY', 'CREATEJS', 'nodejs'],
@@ -49,7 +49,7 @@ const playList = [
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/3.jpg',
-    date: '202008',
+    date: '2020-08',
     url: '/playa',
     title: 'PLAYA',
     skill: ['JQUERY', 'CREATEJS', 'NODEJS'],
@@ -57,7 +57,7 @@ const playList = [
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/4.jpg',
-    date: '202008',
+    date: '2020-08',
     url: '/playa',
     title: 'PLAYA',
     skill: ['JQUERY', 'CREATEJS', 'NODEJS'],
@@ -65,7 +65,7 @@ const playList = [
   },
   {
     img: 'https://tympanus.net/Development/HoverEffectIdeas/img/5.jpg',
-    date: '202008',
+    date: '2020-08',
     url: '/playa',
     title: 'PLAYA',
     skill: ['JQUERY', 'CREATEJS', 'nodejs'],
@@ -115,6 +115,7 @@ const Play = ({ className }) => {
             }}
             href={itm.url}
             target="_blank"
+            rel="noopener noreferrer"
           >
             {content}
           </a>

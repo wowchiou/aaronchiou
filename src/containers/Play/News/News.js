@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactLoading from 'react-loading';
+import goBackHoc from '../../../hoc/goBackHoc';
 
 import { getNews } from '../../../shared/service';
-import NewsCard from '../../../components/NewsCard/NewsCard';
+import NewsCard from './NewsCard/NewsCard';
 
 const News = ({ className }) => {
   const [news, setNews] = useState([]);
@@ -71,4 +72,4 @@ const NewsStyle = styled(News)`
   }
 `;
 
-export default NewsStyle;
+export default goBackHoc(NewsStyle);

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { apiPostSendMail } from '../../shared/service';
 import ReactLoading from 'react-loading';
 
-import ContactForm from '../../components/ContactForm/ContactForm';
+import FormBuilder from '../../components/FormBuilder/FormBuilder';
 import Button from '../../components/UI/Button/Button';
 import Modal from '../../components/UI/Modal/Modal';
 import ModalDefault from '../../components/UI/Modal/ModalDefault';
@@ -14,10 +14,44 @@ const Contact = ({ className }) => {
   const [loading, setLoading] = useState(false);
   const [modalStatus, setModalStatus] = useState(null);
 
+  const CONTACT_FORM = {
+    name: {
+      label: 'NAME：*',
+      type: 'text',
+      valid: {
+        required: true,
+        minLength: 2,
+      },
+      placeholder: 'Your Name',
+      errMessage: '請填寫最少兩個字元的名字',
+    },
+    email: {
+      label: 'MAIL*',
+      type: 'email',
+      valid: {
+        required: true,
+        pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z]{2,4})+$/,
+      },
+      placeholder: 'Your EMAIL',
+      errMessage: '請檢查 mail 是否填寫與正確',
+    },
+    message: {
+      label: 'MESSAGE：*',
+      type: 'textarea',
+      valid: {
+        required: true,
+      },
+      placeholder: '',
+      errMessage: '留言不能為空值',
+    },
+  };
+
+  // 關閉跳窗功能
   const closeModalHandler = () => {
     setModalStatus(null);
   };
 
+  // 表單送出後設定跳窗內容
   const sendHandler = async (data) => {
     setLoading(true);
     try {
@@ -25,14 +59,14 @@ const Contact = ({ className }) => {
       reset();
       setModalStatus({
         head: '信件寄出成功',
-        body: 'mail 已寄出，感謝您的來信，我將盡速回信於您！',
+        body: '信件已寄出，感謝您的來信，我將盡速回信於您！',
         footer: [{ text: '確認', clicked: closeModalHandler }],
       });
       setLoading(false);
     } catch (err) {
       setModalStatus({
         head: '信件寄出錯誤',
-        body: 'mail 尚未寄出，請稍後再試！',
+        body: '信件尚未寄出，請稍後再試！',
         footer: [{ text: '確認', clicked: closeModalHandler }],
       });
       setLoading(false);
@@ -46,6 +80,7 @@ const Contact = ({ className }) => {
           <ModalDefault {...modalStatus} />
         </Modal>
       )}
+
       <div className="contact_wrap">
         <div className="contact_group">
           <h1>CONTACT ME</h1>
@@ -60,7 +95,12 @@ const Contact = ({ className }) => {
         </div>
         <div className="contact_group">
           <form onSubmit={handleSubmit(sendHandler)}>
-            <ContactForm register={register} errors={errors} watch={watch} />
+            <FormBuilder
+              register={register}
+              errors={errors}
+              watch={watch}
+              formData={CONTACT_FORM}
+            />
             <div className="btns">
               <Button disabled={loading}>SEND</Button>
               {loading && (

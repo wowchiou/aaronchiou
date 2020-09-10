@@ -5,15 +5,22 @@ import { GlobalStyles, ResetStyles } from './GlobalStyles';
 
 import Home from './containers/Home/Home';
 import News from './containers/Play/News/News';
+import TodoList from './containers/Play/TodoList/TodoList';
+import SignUp from './containers/Sign/SignUp/SignUp';
+import SignIn from './containers/Sign/SignIn/SignIn';
 
 const playList = [
   {
     url: '/news',
     component: News,
   },
+  {
+    url: '/todolist',
+    component: TodoList,
+  },
 ];
 
-const App = ({ className, location, history }) => {
+const App = ({ className }) => {
   // console.log(process.env.NODE_ENV);
   const PlayRoute = playList.map((list, idx) => (
     <Route
@@ -29,6 +36,8 @@ const App = ({ className, location, history }) => {
       <GlobalStyles />
       <Switch>
         {PlayRoute}
+        <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
         <Route path="/" component={Home} />
       </Switch>
     </div>

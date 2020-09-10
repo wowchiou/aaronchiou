@@ -26,6 +26,9 @@ const ButtonStyle = styled(Button)`
   letter-spacing: 1.2px;
   transition: 0.3s;
   border-radius: 0.2rem;
+  &:hover {
+    background-color: #6af1d1;
+  }
   &:active {
     opacity: 0.5;
   }

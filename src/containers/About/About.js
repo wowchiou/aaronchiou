@@ -1,13 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import CanvasText from '../../components/CanvasText/CanvasText';
-import personalPhoto from '../../assets/images/ac-photo.jpg';
-
 const About = ({ className }) => {
   return (
     <div className={`about ${className}`}>
-      {/* <CanvasText /> */}
       <div className="about_content">
         <div className="about_text">
           <p>

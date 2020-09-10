@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const Modal = (props) => {
   const { clicked, className, children } = props;
-  const globalModal = window.document.getElementById('global-modal');
 
+  // 點擊跳窗空白處關閉跳窗
   const modalCloseHandler = (e) => {
     e.target.classList.forEach((cl) => {
       if (cl === 'modal' || cl === 'wrap') {
@@ -14,17 +14,23 @@ const Modal = (props) => {
     });
   };
 
+  // 跳窗外框樣式碼
   const modal = (
     <div className={`modal ${className}`} onClick={modalCloseHandler}>
-      <div className="closeBtn" onClick={clicked}>
-        <span></span>
-        <span></span>
-      </div>
       <div className="wrap">
-        <div className="container">{children}</div>
+        <div className="container">
+          <div className="closeBtn" onClick={clicked}>
+            <span></span>
+            <span></span>
+          </div>
+          {children}
+        </div>
       </div>
     </div>
   );
+
+  // 指定傳送門位置
+  const globalModal = window.document.getElementById('global-modal');
 
   return createPortal(modal, globalModal);
 };
@@ -34,12 +40,21 @@ const ModalStyle = styled(Modal)`
   min-height: 100vh;
   background-color: rgba(2, 2, 2, 0.8);
   position: relative;
+  animation: model-fade 0.5s forwards;
+  @keyframes model-fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   .closeBtn {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 5rem;
-    height: 5rem;
+    bottom: 100%;
+    right: -2px;
+    width: 3.5rem;
+    height: 3.5rem;
     background-color: ${({ theme }) => theme.color.secondary};
     cursor: pointer;
     span {
@@ -73,6 +88,15 @@ const ModalStyle = styled(Modal)`
     padding: 3rem;
     font-size: 2rem;
     margin: 7.5rem 0;
+    animation: model-slideDown 0.5s forwards;
+    @keyframes model-slideDown {
+      0% {
+        transform: translate(0, -10%);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
   }
 `;
 

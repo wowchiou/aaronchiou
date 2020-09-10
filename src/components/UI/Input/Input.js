@@ -63,8 +63,7 @@ const InputStyle = styled(Input)`
     font-size: 1.4rem;
     margin-left: 1rem;
     font-weight: 400;
-    letter-spacing: 1px;
-    opacity: 0.6;
+    letter-spacing: 1.3px;
   }
 `;
 
