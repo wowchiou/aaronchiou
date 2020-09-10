@@ -46,7 +46,7 @@ const HomeStyle = styled(Home)`
   font-size: 2rem;
   position: relative;
   background-color: #222;
-  height: 100vh;
+  height: 100%;
   .home_header {
     display: inline-block;
     position: fixed;
