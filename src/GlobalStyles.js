@@ -67,7 +67,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Noto Sans TC';
     color: ${({ theme }) => theme.color.primary};
-    background-color: #efefef;
+    background-color: #222;
   }
   a {
     text-decoration: none;

@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = React.memo(({ clicked, children, className }) => {
+const Button = ({ clicked, disabled, children, className }) => {
   return (
-    <button className={`button ${className}`} onClick={clicked}>
+    <button
+      className={`button ${className}`}
+      onClick={clicked}
+      disabled={disabled ? 'disabled' : false}
+    >
       {children}
     </button>
   );
-});
+};
 
 const ButtonStyle = styled(Button)`
   background-color: ${({ theme }) => theme.color.secondary};
@@ -24,6 +28,10 @@ const ButtonStyle = styled(Button)`
   border-radius: 0.2rem;
   &:active {
     opacity: 0.5;
+  }
+  &[disabled='disabled'],
+  &:disabled {
+    background-color: #ccc;
   }
 `;
 

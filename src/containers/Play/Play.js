@@ -143,7 +143,6 @@ const Play = ({ className }) => {
 
 const PlayStyle = styled(Play)`
   min-height: 100vh;
-  background-color: #222;
   color: #fff;
   position: relative;
   top: 0;

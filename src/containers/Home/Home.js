@@ -45,7 +45,6 @@ const Home = ({ className, location, history }) => {
 const HomeStyle = styled(Home)`
   font-size: 2rem;
   position: relative;
-  background-color: #222;
   height: 100%;
   .home_header {
     display: inline-block;

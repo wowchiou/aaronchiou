@@ -10,7 +10,7 @@ const ModalDefault = (props) => {
       <div className="body">{body}</div>
       <div className="footer">
         {footer.map((btn) => (
-          <Button key={btn.text} clicked={btn.clicked}>
+          <Button key={btn.text} clicked={btn.clicked} disabled={btn.disabled}>
             {btn.text}
           </Button>
         ))}

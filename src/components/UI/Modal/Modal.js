@@ -68,7 +68,6 @@ const ModalStyle = styled(Modal)`
     border-radius: 0.5rem;
   }
   .container {
-    background-color: rgba(2, 2, 2, 0.8);
     border: 2px solid ${({ theme }) => theme.color.secondary};
     width: 100%;
     padding: 3rem;

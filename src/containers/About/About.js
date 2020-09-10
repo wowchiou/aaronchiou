@@ -30,7 +30,6 @@ const AboutStyle = styled(About)`
   left: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: #efefef;
   .about_content {
     display: flex;
     justify-content: center;

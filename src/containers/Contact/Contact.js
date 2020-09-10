@@ -23,19 +23,19 @@ const Contact = ({ className }) => {
     try {
       const res = await apiPostSendMail(data);
       reset();
-      setLoading(false);
       setModalStatus({
         head: '信件寄出成功',
         body: 'mail 已寄出，感謝您的來信，我將盡速回信於您！',
         footer: [{ text: '確認', clicked: closeModalHandler }],
       });
-    } catch (err) {
       setLoading(false);
+    } catch (err) {
       setModalStatus({
         head: '信件寄出錯誤',
         body: 'mail 尚未寄出，請稍後再試！',
         footer: [{ text: '確認', clicked: closeModalHandler }],
       });
+      setLoading(false);
     }
   };
 
@@ -62,7 +62,7 @@ const Contact = ({ className }) => {
           <form onSubmit={handleSubmit(sendHandler)}>
             <ContactForm register={register} errors={errors} watch={watch} />
             <div className="btns">
-              <Button>SEND</Button>
+              <Button disabled={loading}>SEND</Button>
               {loading && (
                 <ReactLoading
                   type="spin"
@@ -80,8 +80,6 @@ const Contact = ({ className }) => {
 };
 
 const ContactStyle = styled(Contact)`
-  /* background-color: #ff990050; */
-  background-color: #222;
   min-height: 100vh;
   display: flex;
   justify-content: center;
