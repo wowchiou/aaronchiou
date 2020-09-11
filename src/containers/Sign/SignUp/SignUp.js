@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import FormBuilder from '../../../components/FormBuilder/FormBuilder';
 import Button from '../../../components/UI/Button/Button';
 
+import { signup } from '../../../shared/service';
+
 const SignUp = ({ className }) => {
   const { handleSubmit, register, errors, watch, reset } = useForm();
 
@@ -42,8 +44,14 @@ const SignUp = ({ className }) => {
     },
   };
 
-  const submitHandler = (data) => {
+  const submitHandler = async (data) => {
     console.log(data);
+    try {
+      const res = await signup(data);
+      console.log('res', res);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   return (

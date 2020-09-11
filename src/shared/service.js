@@ -21,3 +21,15 @@ export const getNews = async () => {
   const response = await devBaseUrl.get('/feed/getNews');
   return response;
 };
+
+// 註冊
+export const signup = async (data) => {
+  const response = await devBaseUrl.post('/feed/signup', data);
+  return response;
+};
+
+// 登入
+export const signin = async (data) => {
+  const response = await devBaseUrl.post('/feed/signin', data);
+  return response;
+};
