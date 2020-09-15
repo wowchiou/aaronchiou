@@ -1,64 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { onSignup } from '../../../store/actions/index';
+import SIGNUP_FORM from './signupForm';
+import goBackHoc from '../../../hoc/goBackHoc';
 
 import FormBuilder from '../../../components/FormBuilder/FormBuilder';
 import Button from '../../../components/UI/Button/Button';
 
-import { signup } from '../../../shared/service';
-
-const SignUp = ({ className }) => {
+const SignUp = (props) => {
+  const { className, onSignup, loading, token } = props;
   const { handleSubmit, register, errors, watch, reset } = useForm();
-
-  const SIGNUP_FORM = {
-    email: {
-      label: 'MAIL',
-      type: 'email',
-      valid: {
-        required: true,
-        pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z]{2,4})+$/,
-      },
-      placeholder: 'MAIL帳號',
-      errMessage: '請檢查 MAIL 帳號是否填寫與正確',
-    },
-    password: {
-      label: 'PASSWORD',
-      type: 'password',
-      valid: {
-        required: true,
-        minLength: 6,
-      },
-      placeholder: '最少6個字元密碼',
-      errMessage: '請填寫最少6個字元的密碼',
-    },
-    confirm_password: {
-      label: 'CONFIRM PASSWORD',
-      type: 'password',
-      valid: {
-        required: true,
-        minLength: 6,
-      },
-      placeholder: '再次確認密碼',
-      errMessage: '輸入密碼錯誤',
-    },
-  };
-
-  const submitHandler = async (data) => {
-    console.log(data);
-    try {
-      const res = await signup(data);
-      console.log('res', res);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
 
   return (
     <div className={`signUp ${className}`}>
+      {token && <Redirect to="/" />}
       <div className="wrap">
         <div className="title">註冊</div>
-        <form onSubmit={handleSubmit(submitHandler)}>
+        <form onSubmit={handleSubmit(onSignup)}>
           <FormBuilder
             formData={SIGNUP_FORM}
             register={register}
@@ -77,6 +38,19 @@ const SignUp = ({ className }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    token: state.auth.token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignup: (data) => dispatch(onSignup(data)),
+  };
+};
+
 const SignUpStyle = styled(SignUp)`
   display: flex;
   justify-content: center;
@@ -84,7 +58,7 @@ const SignUpStyle = styled(SignUp)`
   color: #fff;
   min-height: 100vh;
   .wrap {
-    max-width: 500px;
+    max-width: 50rem;
     width: 90%;
     margin: 8rem 0;
     animation: slide-right 0.5s linear;
@@ -125,4 +99,7 @@ const SignUpStyle = styled(SignUp)`
   }
 `;
 
-export default SignUpStyle;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(goBackHoc(SignUpStyle));

@@ -7,6 +7,7 @@ export const devBaseUrl = axios.create({
       : 'https://aaronchiou-back-end.herokuapp.com/',
   headers: {
     'Content-Type': 'application/json',
+    authorization: localStorage.getItem('ACToken'),
   },
 });
 

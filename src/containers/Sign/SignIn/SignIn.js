@@ -2,53 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import SIGNIN_FORM from './signinForm';
+import goBackHoc from '../../../hoc/goBackHoc';
 
 import FormBuilder from '../../../components/FormBuilder/FormBuilder';
 import Button from '../../../components/UI/Button/Button';
+import { onSignin } from '../../../store/actions/index';
 
-import { signin } from '../../../shared/service';
-
-const SignIn = ({ className }) => {
+const SignIn = (props) => {
+  const { className, onSignin, loading } = props;
   const { handleSubmit, register, errors, watch, reset } = useForm();
-
-  const SIGNIN_FORM = {
-    email: {
-      label: 'MAIL',
-      type: 'email',
-      valid: {
-        required: true,
-        pattern: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z]{2,4})+$/,
-      },
-      placeholder: 'MAIL帳號',
-      errMessage: '請檢查 MAIL 帳號是否填寫與正確',
-    },
-    password: {
-      label: 'PASSWORD',
-      type: 'password',
-      valid: {
-        required: true,
-        minLength: 6,
-      },
-      placeholder: '最少6個字元密碼',
-      errMessage: '請填寫最少6個字元的名字',
-    },
-  };
-
-  const submitHandler = async (data) => {
-    console.log(data);
-    try {
-      const res = await signin(data);
-      console.log('res', res);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
 
   return (
     <div className={`signIn ${className}`}>
       <div className="wrap">
         <div className="title">登入</div>
-        <form onSubmit={handleSubmit(submitHandler)}>
+        <form onSubmit={handleSubmit(onSignin)}>
           <FormBuilder
             formData={SIGNIN_FORM}
             register={register}
@@ -67,6 +37,18 @@ const SignIn = ({ className }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignin: (data) => dispatch(onSignin(data)),
+  };
+};
+
 const SignInStyle = styled(SignIn)`
   display: flex;
   justify-content: center;
@@ -74,7 +56,7 @@ const SignInStyle = styled(SignIn)`
   color: #fff;
   min-height: 100vh;
   .wrap {
-    max-width: 500px;
+    max-width: 50rem;
     width: 90%;
     margin: 8rem 0;
     animation: slide-right 0.5s linear;
@@ -115,4 +97,7 @@ const SignInStyle = styled(SignIn)`
   }
 `;
 
-export default SignInStyle;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(goBackHoc(SignInStyle));

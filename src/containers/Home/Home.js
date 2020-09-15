@@ -1,19 +1,33 @@
 import React from 'react';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux';
+import { onSignout } from '../../store/actions/index';
 
 import Navigation from '../../components/Navigation/Navigation';
 import About from '../About/About';
 import Play from '../Play/Play';
 import Contact from '../Contact/Contact';
 
-const Home = ({ className, location, history }) => {
+const Home = (props) => {
+  const { className, location, history, onSignout, token, loading } = props;
   // console.log(process.env.NODE_ENV);
+  const signBtn = token ? (
+    <div className="sign" onClick={onSignout}>
+      登出
+    </div>
+  ) : (
+    <Link to="/signin" className="sign">
+      登入
+    </Link>
+  );
+
   return (
     <div className={`home ${className}`}>
       <header className="home_header">
         <Navigation />
+        {signBtn}
       </header>
       <main className="home_wrapper">
         <TransitionGroup
@@ -42,18 +56,48 @@ const Home = ({ className, location, history }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    token: state.auth.token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignout: () => dispatch(onSignout()),
+  };
+};
+
 const HomeStyle = styled(Home)`
   font-size: 2rem;
   position: relative;
   height: 100%;
   .home_header {
-    display: inline-block;
+    display: flex;
     position: fixed;
     width: auto;
     top: 1rem;
     right: 1rem;
     box-sizing: border-box;
     z-index: 100;
+    justify-content: flex-end;
+    align-items: center;
+    .sign {
+      margin-left: 2rem;
+      border: 1px solid ${({ theme }) => theme.color.secondary};
+      display: block;
+      padding: 0.5rem 1.5rem;
+      color: #fff;
+      border-radius: 0.2rem;
+      transition: 0.3s;
+      font-size: 1.6rem;
+      @media ${({ theme }) => theme.device.upMobile} {
+        &:hover {
+          background-color: ${({ theme }) => theme.color.secondary};
+        }
+      }
+    }
   }
   .home_wrapper {
     position: relative;
@@ -135,4 +179,7 @@ const HomeStyle = styled(Home)`
   /* transition group css end */
 `;
 
-export default withRouter(HomeStyle);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(HomeStyle));
