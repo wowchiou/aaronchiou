@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactLoading from 'react-loading';
-import goBackHoc from '../../../hoc/goBackHoc';
+
+import NewsCard from './NewsCard/NewsCard';
+import GoBack from '../../../components/UI/GoBack/GoBack';
 
 import { getNews } from '../../../shared/service';
-import NewsCard from './NewsCard/NewsCard';
 
 const News = ({ className }) => {
   const [news, setNews] = useState([]);
@@ -42,6 +43,7 @@ const News = ({ className }) => {
           />
         </div>
       )}
+      <GoBack />
       {news}
     </div>
   );
@@ -72,4 +74,4 @@ const NewsStyle = styled(News)`
   }
 `;
 
-export default goBackHoc(NewsStyle);
+export default NewsStyle;

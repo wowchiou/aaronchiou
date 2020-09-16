@@ -3,12 +3,16 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { onSignup } from '../../../store/actions/index';
-import SIGNUP_FORM from './signupForm';
-import goBackHoc from '../../../hoc/goBackHoc';
+import ReactLoading from 'react-loading';
 
 import FormBuilder from '../../../components/FormBuilder/FormBuilder';
 import Button from '../../../components/UI/Button/Button';
+import GoBack from '../../../components/UI/GoBack/GoBack';
+import Modal from '../../../components/UI/Modal/Modal';
+import ModalDefault from '../../../components/UI/Modal/ModalDefault';
+
+import { onSignup } from '../../../store/actions/index';
+import SIGNUP_FORM from './signupForm';
 
 const SignUp = (props) => {
   const { className, onSignup, loading, token } = props;
@@ -17,6 +21,7 @@ const SignUp = (props) => {
   return (
     <div className={`signUp ${className}`}>
       {token && <Redirect to="/" />}
+      <GoBack />
       <div className="wrap">
         <div className="title">註冊</div>
         <form onSubmit={handleSubmit(onSignup)}>
@@ -27,7 +32,18 @@ const SignUp = (props) => {
             watch={watch}
           />
           <div className="btns">
-            <Button>確認註冊</Button>
+            <div className="btns_wrap">
+              <Button disabled={loading}>確認註冊</Button>
+              {loading && (
+                <ReactLoading
+                  className="loading"
+                  type="spin"
+                  color="#fff"
+                  height="3.5rem"
+                  width="3.5rem"
+                />
+              )}
+            </div>
             <Link className="signin" to="/signin">
               登入
             </Link>
@@ -87,6 +103,14 @@ const SignUpStyle = styled(SignUp)`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    .btns_wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .loading {
+        margin-left: 1rem;
+      }
+    }
   }
   .signin {
     font-size: 1.6rem;
@@ -99,7 +123,4 @@ const SignUpStyle = styled(SignUp)`
   }
 `;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(goBackHoc(SignUpStyle));
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpStyle);

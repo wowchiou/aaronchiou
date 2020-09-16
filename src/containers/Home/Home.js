@@ -3,20 +3,20 @@ import { Switch, Route, Redirect, withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { onSignout } from '../../store/actions/index';
 
 import Navigation from '../../components/Navigation/Navigation';
 import About from '../About/About';
 import Play from '../Play/Play';
 import Contact from '../Contact/Contact';
 
+import { onSignout } from '../../store/actions/index';
+
 const Home = (props) => {
   const { className, location, history, onSignout, token, loading } = props;
-  // console.log(process.env.NODE_ENV);
   const signBtn = token ? (
-    <div className="sign" onClick={onSignout}>
+    <Link to="/signout" className="sign">
       登出
-    </div>
+    </Link>
   ) : (
     <Link to="/signin" className="sign">
       登入
@@ -92,6 +92,7 @@ const HomeStyle = styled(Home)`
       border-radius: 0.2rem;
       transition: 0.3s;
       font-size: 1.6rem;
+      cursor: pointer;
       @media ${({ theme }) => theme.device.upMobile} {
         &:hover {
           background-color: ${({ theme }) => theme.color.secondary};

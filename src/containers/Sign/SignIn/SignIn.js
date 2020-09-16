@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import SIGNIN_FORM from './signinForm';
-import goBackHoc from '../../../hoc/goBackHoc';
+import ReactLoading from 'react-loading';
 
 import FormBuilder from '../../../components/FormBuilder/FormBuilder';
 import Button from '../../../components/UI/Button/Button';
+import GoBack from '../../../components/UI/GoBack/GoBack';
+
+import SIGNIN_FORM from './signinForm';
 import { onSignin } from '../../../store/actions/index';
 
 const SignIn = (props) => {
-  const { className, onSignin, loading } = props;
+  const { className, history, onSignin, token, loading } = props;
   const { handleSubmit, register, errors, watch, reset } = useForm();
+
+  useEffect(() => {
+    // 如有 token 且從外部連結進入登入頁
+    // 登入成功後跳回首頁
+    // 如有 token 且是從內部連結進入
+    // 登入成功後返回上一頁
+    if (token) {
+      const action = history.action;
+      if (action === 'POP') {
+        history.push('/');
+      } else if (action === 'PUSH') {
+        history.goBack();
+      }
+    }
+  }, [token]);
 
   return (
     <div className={`signIn ${className}`}>
+      <GoBack />
       <div className="wrap">
         <div className="title">登入</div>
         <form onSubmit={handleSubmit(onSignin)}>
@@ -26,7 +44,18 @@ const SignIn = (props) => {
             watch={watch}
           />
           <div className="btns">
-            <Button>確認登入</Button>
+            <div className="btns_wrap">
+              <Button disabled={loading}>確認登入</Button>
+              {loading && (
+                <ReactLoading
+                  className="loading"
+                  type="spin"
+                  color="#fff"
+                  height="3.5rem"
+                  width="3.5rem"
+                />
+              )}
+            </div>
             <Link className="signup" to="signup">
               註冊
             </Link>
@@ -40,6 +69,7 @@ const SignIn = (props) => {
 const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
+    token: state.auth.token,
   };
 };
 
@@ -85,6 +115,14 @@ const SignInStyle = styled(SignIn)`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    .btns_wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .loading {
+        margin-left: 1rem;
+      }
+    }
   }
   .signup {
     font-size: 1.6rem;
@@ -97,7 +135,4 @@ const SignInStyle = styled(SignIn)`
   }
 `;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(goBackHoc(SignInStyle));
+export default connect(mapStateToProps, mapDispatchToProps)(SignInStyle);

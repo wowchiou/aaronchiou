@@ -1,55 +1,90 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { apiPostSendMail } from '../../shared/service';
 import ReactLoading from 'react-loading';
-import CONTACT_FORM from './contactForm';
 
 import FormBuilder from '../../components/FormBuilder/FormBuilder';
 import Button from '../../components/UI/Button/Button';
 import Modal from '../../components/UI/Modal/Modal';
 import ModalDefault from '../../components/UI/Modal/ModalDefault';
 
+import CONTACT_FORM from './contactForm';
+
+const initState = {
+  laoding: false,
+  modalStatus: false,
+  head: null,
+  body: null,
+  footer: null,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'MODAL_START':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'MODAL_DONE':
+      return {
+        laoding: false,
+        modalStatus: true,
+        head: action.head,
+        body: action.body,
+        footer: action.footer,
+      };
+    case 'MODAL_CLEAR':
+      return {
+        laoding: false,
+        modalStatus: false,
+        head: null,
+        body: null,
+        footer: null,
+      };
+  }
+};
+
 const Contact = ({ className }) => {
+  const [state, dispatch] = useReducer(reducer, initState);
   const { handleSubmit, register, errors, watch, reset } = useForm();
-  const [loading, setLoading] = useState(false);
-  const [modalStatus, setModalStatus] = useState(null);
 
   // 關閉跳窗功能
   const closeModalHandler = () => {
-    setModalStatus(null);
+    dispatch({ type: 'MODAL_CLEAR' });
   };
 
   // 表單送出後設定跳窗內容
   const sendHandler = async (data) => {
-    setLoading(true);
+    dispatch({ type: 'MODAL_START' });
+    const footer = [{ text: '確認', clicked: closeModalHandler }];
     try {
-      const res = await apiPostSendMail(data);
+      await apiPostSendMail(data);
       reset();
-      setModalStatus({
+      dispatch({
+        type: 'MODAL_DONE',
         head: '信件寄出成功',
         body: '信件已寄出，感謝您的來信，我將盡速回信於您！',
-        footer: [{ text: '確認', clicked: closeModalHandler }],
+        footer: footer,
       });
-      setLoading(false);
     } catch (err) {
-      setModalStatus({
+      console.log(err);
+      dispatch({
+        type: 'MODAL_DONE',
         head: '信件寄出錯誤',
         body: '信件尚未寄出，請稍後再試！',
-        footer: [{ text: '確認', clicked: closeModalHandler }],
+        footer: footer,
       });
-      setLoading(false);
     }
   };
 
   return (
     <div className={`contact ${className}`}>
-      {modalStatus && (
-        <Modal show={modalStatus} clicked={closeModalHandler}>
-          <ModalDefault {...modalStatus} />
+      {state.modalStatus && (
+        <Modal show={state.modalStatus} clicked={closeModalHandler}>
+          <ModalDefault {...state} />
         </Modal>
       )}
-
       <div className="contact_wrap">
         <div className="contact_group">
           <h1>CONTACT ME</h1>
@@ -71,8 +106,8 @@ const Contact = ({ className }) => {
               formData={CONTACT_FORM}
             />
             <div className="btns">
-              <Button disabled={loading}>SEND</Button>
-              {loading && (
+              <Button disabled={state.loading}>SEND</Button>
+              {state.loading && (
                 <ReactLoading
                   type="spin"
                   color="#fff"
