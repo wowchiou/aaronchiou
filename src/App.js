@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Home from './containers/Home/Home';
@@ -8,6 +8,8 @@ import TodoList from './containers/Play/TodoList/TodoList';
 import SignUp from './containers/Sign/SignUp/SignUp';
 import SignIn from './containers/Sign/SignIn/SignIn';
 import SignOut from './containers/Sign/SignOut/SignOut';
+import Error500 from './containers/Error/Error500';
+import Error404 from './containers/Error/Error404';
 
 import { GlobalStyles, ResetStyles } from './style/GlobalStyles';
 import authHandler from './hoc/authHandler';
@@ -46,7 +48,10 @@ const App = ({ className }) => {
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signout" component={SignOut} />
+        <Route path="/error500" component={Error500} />
+        <Route path="/error404" component={Error404} />
         <Route path="/" component={Home} />
+        <Redirect to="/error404" />
       </Switch>
     </div>
   );

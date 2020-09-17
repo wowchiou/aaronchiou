@@ -8,13 +8,32 @@ import ReactLoading from 'react-loading';
 import FormBuilder from '../../../components/FormBuilder/FormBuilder';
 import Button from '../../../components/UI/Button/Button';
 import GoBack from '../../../components/UI/GoBack/GoBack';
+import Modal from '../../../components/UI/Modal/Modal';
+import ModalDefault from '../../../components/UI/Modal/ModalDefault';
 
 import SIGNIN_FORM from './signinForm';
-import { onSignin } from '../../../store/actions/index';
+import { onClear, onSignin } from '../../../store/actions/index';
 
 const SignIn = (props) => {
-  const { className, history, onSignin, token, loading } = props;
+  const {
+    className,
+    history,
+    onSignin,
+    onClear,
+    token,
+    loading,
+    error,
+  } = props;
   const { handleSubmit, register, errors, watch, reset } = useForm();
+
+  let errorObject = null;
+  if (error) {
+    errorObject = {
+      head: '登入失敗',
+      body: error,
+      footer: [{ text: '確認', clicked: onClear }],
+    };
+  }
 
   useEffect(() => {
     // 如有 token 且從外部連結進入登入頁
@@ -33,6 +52,12 @@ const SignIn = (props) => {
 
   return (
     <div className={`signIn ${className}`}>
+      {error && (
+        <Modal show={error} clicked={onClear}>
+          <ModalDefault {...errorObject} />
+        </Modal>
+      )}
+
       <GoBack />
       <div className="wrap">
         <div className="title">登入</div>
@@ -70,12 +95,14 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     token: state.auth.token,
+    error: state.auth.errorMessage,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onSignin: (data) => dispatch(onSignin(data)),
+    onClear: () => dispatch(onClear()),
   };
 };
 

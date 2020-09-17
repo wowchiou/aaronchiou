@@ -19,6 +19,11 @@ export const actions = {
       error,
     };
   },
+  clear: () => {
+    return {
+      type: actionType.AUTH_CLEAR,
+    };
+  },
   out: () => {
     return {
       type: actionType.AUTH_LOGOUT,
@@ -36,7 +41,8 @@ export const onSignup = (data) => {
       dispatch(actions.success(token));
     } catch (error) {
       console.log(error.response);
-      dispatch(actions.fail(error));
+      const message = error.response.data.message;
+      dispatch(actions.fail(message));
     }
   };
 };
@@ -51,8 +57,15 @@ export const onSignin = (data) => {
       dispatch(actions.success(token));
     } catch (error) {
       console.log(error.response);
-      dispatch(actions.fail(error));
+      const message = error.response.data.message;
+      dispatch(actions.fail(message));
     }
+  };
+};
+
+export const onClear = () => {
+  return (dispatch) => {
+    dispatch(actions.clear());
   };
 };
 

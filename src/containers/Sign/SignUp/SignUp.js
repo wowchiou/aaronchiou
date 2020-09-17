@@ -11,16 +11,32 @@ import GoBack from '../../../components/UI/GoBack/GoBack';
 import Modal from '../../../components/UI/Modal/Modal';
 import ModalDefault from '../../../components/UI/Modal/ModalDefault';
 
-import { onSignup } from '../../../store/actions/index';
+import { onClear, onSignup } from '../../../store/actions/index';
 import SIGNUP_FORM from './signupForm';
 
 const SignUp = (props) => {
-  const { className, onSignup, loading, token } = props;
+  const { className, onSignup, onClear, loading, token, error } = props;
   const { handleSubmit, register, errors, watch, reset } = useForm();
+
+  let errorObject = null;
+  if (error) {
+    errorObject = {
+      head: '註冊未成功',
+      body: error,
+      footer: [{ text: '確認', clicked: onClear }],
+    };
+  }
 
   return (
     <div className={`signUp ${className}`}>
       {token && <Redirect to="/" />}
+
+      {error && (
+        <Modal show={error} clicked={onClear}>
+          <ModalDefault {...errorObject} />
+        </Modal>
+      )}
+
       <GoBack />
       <div className="wrap">
         <div className="title">註冊</div>
@@ -58,12 +74,14 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     token: state.auth.token,
+    error: state.auth.errorMessage,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onSignup: (data) => dispatch(onSignup(data)),
+    onClear: () => dispatch(onClear()),
   };
 };
 

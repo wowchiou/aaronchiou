@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import styled from 'styled-components';
 import ReactLoading from 'react-loading';
 
@@ -7,23 +7,49 @@ import GoBack from '../../../components/UI/GoBack/GoBack';
 
 import { getNews } from '../../../shared/service';
 
-const News = ({ className }) => {
-  const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(false);
+const initState = {
+  loading: false,
+  news: [],
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'NEWS_START':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'NEWS_DONE':
+      return {
+        loading: false,
+        news: action.news,
+      };
+    case 'NEWS_FAIL':
+      return {
+        ...state,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+const News = ({ className, history }) => {
+  const [state, dispatch] = useReducer(reducer, initState);
 
   const getNewsHandler = async () => {
     try {
-      setLoading(true);
+      dispatch({ type: 'NEWS_START' });
       const res = await getNews();
       const resData = res.data.data;
       const newsCards = resData.articles.map((news) => {
         return <NewsCard key={news.title} {...news} />;
       });
-      setNews(newsCards);
-      setLoading(false);
+      dispatch({ type: 'NEWS_DONE', news: newsCards });
     } catch (err) {
-      console.log(err);
-      setLoading(false);
+      console.log(err.response);
+      dispatch({ type: 'NEWS_FAIL' });
+      history.push('/error500');
     }
   };
 
@@ -33,7 +59,7 @@ const News = ({ className }) => {
 
   return (
     <div className={`news ${className}`}>
-      {loading && (
+      {state.loading && (
         <div className="loading">
           <ReactLoading
             type="spin"
@@ -44,7 +70,7 @@ const News = ({ className }) => {
         </div>
       )}
       <GoBack />
-      {news}
+      {state.news}
     </div>
   );
 };

@@ -9,10 +9,8 @@ import About from '../About/About';
 import Play from '../Play/Play';
 import Contact from '../Contact/Contact';
 
-import { onSignout } from '../../store/actions/index';
-
 const Home = (props) => {
-  const { className, location, history, onSignout, token, loading } = props;
+  const { className, location, history, token } = props;
   const signBtn = token ? (
     <Link to="/signout" className="sign">
       登出
@@ -47,7 +45,7 @@ const Home = (props) => {
               <Route path="/play" component={Play} />
               <Route path="/contact" component={Contact} />
               <Route path="/" exact component={About} />
-              <Redirect to="/" />
+              <Redirect to="/error404" />
             </Switch>
           </CSSTransition>
         </TransitionGroup>
@@ -58,14 +56,7 @@ const Home = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.auth.loading,
     token: state.auth.token,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSignout: () => dispatch(onSignout()),
   };
 };
 
@@ -180,7 +171,4 @@ const HomeStyle = styled(Home)`
   /* transition group css end */
 `;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(HomeStyle));
+export default connect(mapStateToProps)(withRouter(HomeStyle));

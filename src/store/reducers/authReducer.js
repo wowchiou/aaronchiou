@@ -27,6 +27,12 @@ const authReducer = (state = initState, action) => {
         errorMessage: action.error,
         loading: false,
       };
+    case actionType.AUTH_CLEAR:
+      return {
+        ...state,
+        errorMessage: null,
+        loading: false,
+      };
     case actionType.AUTH_LOGOUT:
       return {
         ...state,
