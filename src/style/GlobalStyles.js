@@ -125,4 +125,7 @@ export const GlobalStyles = createGlobalStyle`
     overflow: auto;
     z-index: 900;
   }
+  .Toastify__toast {
+    font-size: 1.8rem;
+  }
 `;

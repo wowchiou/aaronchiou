@@ -11,6 +11,8 @@ import GoBack from '../../../components/UI/GoBack/GoBack';
 import Modal from '../../../components/UI/Modal/Modal';
 import ModalDefault from '../../../components/UI/Modal/ModalDefault';
 
+import { axiosAC } from '../../../shared/service';
+import withErrorHandler from '../../../hoc/withErrorHandler';
 import SIGNIN_FORM from './signinForm';
 import { onClear, onSignin } from '../../../store/actions/index';
 
@@ -162,4 +164,7 @@ const SignInStyle = styled(SignIn)`
   }
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInStyle);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(SignInStyle, axiosAC));

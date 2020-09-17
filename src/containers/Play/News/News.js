@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import styled from 'styled-components';
 import ReactLoading from 'react-loading';
 
@@ -6,6 +6,8 @@ import NewsCard from './NewsCard/NewsCard';
 import GoBack from '../../../components/UI/GoBack/GoBack';
 
 import { getNews } from '../../../shared/service';
+import { axiosAC } from '../../../shared/service';
+import withErrorHandler from '../../../hoc/withErrorHandler';
 
 const initState = {
   loading: false,
@@ -34,7 +36,7 @@ const reducer = (state, action) => {
   }
 };
 
-const News = ({ className, history }) => {
+const News = ({ className }) => {
   const [state, dispatch] = useReducer(reducer, initState);
 
   const getNewsHandler = async () => {
@@ -47,9 +49,7 @@ const News = ({ className, history }) => {
       });
       dispatch({ type: 'NEWS_DONE', news: newsCards });
     } catch (err) {
-      console.log(err.response);
       dispatch({ type: 'NEWS_FAIL' });
-      history.push('/error500');
     }
   };
 
@@ -58,20 +58,22 @@ const News = ({ className, history }) => {
   }, []);
 
   return (
-    <div className={`news ${className}`}>
-      {state.loading && (
-        <div className="loading">
-          <ReactLoading
-            type="spin"
-            color="#60dabd"
-            height="3.5rem"
-            width="3.5rem"
-          />
-        </div>
-      )}
-      <GoBack />
-      {state.news}
-    </div>
+    <>
+      <div className={`news ${className}`}>
+        {state.loading && (
+          <div className="loading">
+            <ReactLoading
+              type="spin"
+              color="#60dabd"
+              height="3.5rem"
+              width="3.5rem"
+            />
+          </div>
+        )}
+        <GoBack />
+        {state.news}
+      </div>
+    </>
   );
 };
 
@@ -100,4 +102,4 @@ const NewsStyle = styled(News)`
   }
 `;
 
-export default NewsStyle;
+export default withErrorHandler(NewsStyle, axiosAC);

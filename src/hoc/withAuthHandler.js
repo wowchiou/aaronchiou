@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const authHandler = (WrappedComponents) => {
+const withAuthHandler = (WrappedComponents) => {
   return connect(mapStateToProps)((props) => {
     const { token, history } = props;
     if (!token) {
@@ -21,4 +21,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default authHandler;
+export default withAuthHandler;

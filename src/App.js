@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Home from './containers/Home/Home';
 import News from './containers/Play/News/News';
@@ -12,7 +14,7 @@ import Error500 from './containers/Error/Error500';
 import Error404 from './containers/Error/Error404';
 
 import { GlobalStyles, ResetStyles } from './style/GlobalStyles';
-import authHandler from './hoc/authHandler';
+import withAuthHandler from './hoc/withAuthHandler';
 
 const routesList = [
   {
@@ -32,7 +34,7 @@ const App = ({ className }) => {
     // 如 route 需要身分驗證則加入 authHandler hoc
     let comt = list.comt;
     if (list.isAuth) {
-      comt = authHandler(comt);
+      comt = withAuthHandler(comt);
     }
     return (
       <Route key={list.url + idx} path={`/play${list.url}`} component={comt} />
@@ -43,6 +45,17 @@ const App = ({ className }) => {
     <div className={`app ${className}`}>
       <ResetStyles />
       <GlobalStyles />
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnVisibilityChange
+        draggable
+        pauseOnHover
+      />
       <Switch>
         {routes}
         <Route path="/signup" component={SignUp} />
