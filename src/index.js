@@ -13,15 +13,15 @@ import store from './store/reducers/index';
 // console.log(process.env.NODE_ENV);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={styleTheme}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <ThemeProvider theme={styleTheme}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
+  </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

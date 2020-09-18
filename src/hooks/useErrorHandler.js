@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 
 export default (httpInstance) => {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
+
+  console.log('useError');
 
   const reqInterceptor = httpInstance.interceptors.request.use(
     (config) => {
       // Do something before request is sent
-      setError(null);
+      setError(false);
       return config;
     },
     (err) => {
@@ -24,13 +26,13 @@ export default (httpInstance) => {
     (err) => {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
-      setError(err.response);
+      setError(err);
       return Promise.reject(err);
     }
   );
 
   const errorClearHandler = useCallback(() => {
-    setError(null);
+    setError(false);
   }, []);
 
   useEffect(() => {

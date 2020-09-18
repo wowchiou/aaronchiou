@@ -9,7 +9,7 @@ const SignOut = ({ className, onSignout }) => {
   useEffect(() => {
     localStorage.removeItem('ACToken');
     onSignout();
-  }, []);
+  }, [onSignout]);
 
   return (
     <div className={`signout ${className}`}>

@@ -8,35 +8,21 @@ import ReactLoading from 'react-loading';
 import FormBuilder from '../../../components/FormBuilder/FormBuilder';
 import Button from '../../../components/UI/Button/Button';
 import GoBack from '../../../components/UI/GoBack/GoBack';
-import Modal from '../../../components/UI/Modal/Modal';
-import ModalDefault from '../../../components/UI/Modal/ModalDefault';
 
-import { onClear, onSignup } from '../../../store/actions/index';
+import { axiosAC } from '../../../shared/service';
+import withErrorHandler from '../../../hoc/withErrorHandler';
+import { onSignup } from '../../../store/actions/index';
 import SIGNUP_FORM from './signupForm';
 
 const SignUp = (props) => {
-  const { className, onSignup, onClear, loading, token, error } = props;
-  const { handleSubmit, register, errors, watch, reset } = useForm();
+  const { className, onSignup, loading, token } = props;
+  const { handleSubmit, register, errors, watch } = useForm();
 
-  let errorObject = null;
-  if (error) {
-    errorObject = {
-      head: '註冊未成功',
-      body: error,
-      footer: [{ text: '確認', clicked: onClear }],
-    };
-  }
+  console.log('signup');
 
   return (
     <div className={`signUp ${className}`}>
       {token && <Redirect to="/" />}
-
-      {error && (
-        <Modal show={error} clicked={onClear}>
-          <ModalDefault {...errorObject} />
-        </Modal>
-      )}
-
       <GoBack />
       <div className="wrap">
         <div className="title">註冊</div>
@@ -74,14 +60,12 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     token: state.auth.token,
-    error: state.auth.errorMessage,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onSignup: (data) => dispatch(onSignup(data)),
-    onClear: () => dispatch(onClear()),
   };
 };
 
@@ -141,4 +125,9 @@ const SignUpStyle = styled(SignUp)`
   }
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpStyle);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(SignUpStyle, axiosAC));
+
+// export default connect(mapStateToProps, mapDispatchToProps)(SignUpStyle);

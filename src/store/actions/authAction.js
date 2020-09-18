@@ -33,6 +33,7 @@ export const actions = {
 
 export const onSignup = (data) => {
   return async (dispatch) => {
+    console.log('clicked');
     dispatch(actions.start());
     try {
       const res = await signup(data);
@@ -40,9 +41,13 @@ export const onSignup = (data) => {
       localStorage.setItem('ACToken', token);
       dispatch(actions.success(token));
     } catch (error) {
-      console.log(error.response);
-      const message = error.response.data.message;
-      dispatch(actions.fail(message));
+      if (error.response) {
+        console.log(error.response);
+        const message = error.response.data.message;
+        dispatch(actions.fail(message));
+      } else {
+        dispatch(actions.fail(null));
+      }
     }
   };
 };
@@ -56,9 +61,13 @@ export const onSignin = (data) => {
       localStorage.setItem('ACToken', token);
       dispatch(actions.success(token));
     } catch (error) {
-      console.log(error.response);
-      const message = error.response.data.message;
-      dispatch(actions.fail(message));
+      if (error.response) {
+        console.log(error.response);
+        const message = error.response.data.message;
+        dispatch(actions.fail(message));
+      } else {
+        dispatch(actions.fail(null));
+      }
     }
   };
 };
