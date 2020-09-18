@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = React.memo(({ clicked, disabled, children, className }) => {
-  console.log('btn');
   return (
     <button
       className={`button ${className}`}

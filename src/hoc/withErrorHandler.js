@@ -12,8 +12,6 @@ const withErrorHandler = (WrappedComponents, axios) => {
     const [error, clearError] = useErrorHandler(axios);
     const [showModal, setShowModal] = useState(false);
 
-    console.log('withErrorHandler');
-
     useEffect(() => {
       if (error) {
         if (error.response) {

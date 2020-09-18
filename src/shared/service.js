@@ -9,7 +9,6 @@ export const axiosAC = axios.create({
     'Content-Type': 'application/json',
     authorization: localStorage.getItem('ACToken'),
   },
-  timeout: 5000,
 });
 
 // send email

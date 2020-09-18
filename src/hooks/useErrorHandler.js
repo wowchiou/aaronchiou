@@ -3,8 +3,6 @@ import { useState, useEffect, useCallback } from 'react';
 export default (httpInstance) => {
   const [error, setError] = useState(false);
 
-  console.log('useError');
-
   const reqInterceptor = httpInstance.interceptors.request.use(
     (config) => {
       // Do something before request is sent

@@ -16,9 +16,17 @@ import SIGNUP_FORM from './signupForm';
 
 const SignUp = (props) => {
   const { className, onSignup, loading, token } = props;
-  const { handleSubmit, register, errors, watch } = useForm();
+  const { handleSubmit, register, errors, watch, setError } = useForm();
 
-  console.log('signup');
+  const onSubmit = (data) => {
+    // 確認兩次密碼是否輸入一致
+    const signupPsw = watch('password');
+    const signupConfirmPsw = watch('confirm_password');
+    if (signupPsw !== signupConfirmPsw) {
+      return setError('confirm_password');
+    }
+    onSignup(data);
+  };
 
   return (
     <div className={`signUp ${className}`}>
@@ -26,7 +34,7 @@ const SignUp = (props) => {
       <GoBack />
       <div className="wrap">
         <div className="title">註冊</div>
-        <form onSubmit={handleSubmit(onSignup)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormBuilder
             formData={SIGNUP_FORM}
             register={register}
@@ -129,5 +137,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withErrorHandler(SignUpStyle, axiosAC));
-
-// export default connect(mapStateToProps, mapDispatchToProps)(SignUpStyle);
