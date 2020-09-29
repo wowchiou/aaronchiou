@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Home from './containers/Home/Home';
-import News from './containers/Play/News/News';
-import TodoList from './containers/Play/TodoList/TodoList';
 import SignUp from './containers/Sign/SignUp/SignUp';
 import SignIn from './containers/Sign/SignIn/SignIn';
 import SignOut from './containers/Sign/SignOut/SignOut';
 import Error500 from './containers/Error/Error500';
 import Error404 from './containers/Error/Error404';
+import News from './containers/Play/News/News';
+import ChatRoom from './containers/Play/ChatRoom/ChatRoom';
+import Clock from './containers/Play/Clock/Clock';
 
 import { GlobalStyles, ResetStyles } from './style/GlobalStyles';
 import withAuthHandler from './hoc/withAuthHandler';
+import socket from './shared/socket';
+
+// 連線 socket
+socket.init('http://localhost:8080/test');
 
 const routesList = [
   {
@@ -23,9 +28,14 @@ const routesList = [
     isAuth: false,
   },
   {
-    url: '/todolist',
-    comt: TodoList,
+    url: '/chatroom',
+    comt: ChatRoom,
     isAuth: true,
+  },
+  {
+    url: '/clock',
+    comt: Clock,
+    isAuth: false,
   },
 ];
 
@@ -40,6 +50,12 @@ const App = ({ className }) => {
       <Route key={list.url + idx} path={`/play${list.url}`} component={comt} />
     );
   });
+
+  useEffect(() => {
+    socket.get().on('connect', () => {
+      console.log('connect server socket');
+    });
+  }, []);
 
   return (
     <div className={`app ${className}`}>
