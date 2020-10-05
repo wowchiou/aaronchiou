@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
 import styled from 'styled-components';
-import ReactLoading from 'react-loading';
 
 import NewsCard from './NewsCard/NewsCard';
 import GoBack from '../../../components/UI/GoBack/GoBack';
+import Loading from '../../../components/UI/Loading/Loading';
 
 import { getNews } from '../../../shared/service';
 import { axiosAC } from '../../../shared/service';
@@ -60,16 +60,7 @@ const News = ({ className }) => {
   return (
     <>
       <div className={`news ${className}`}>
-        {state.loading && (
-          <div className="loading">
-            <ReactLoading
-              type="spin"
-              color="#60dabd"
-              height="3.5rem"
-              width="3.5rem"
-            />
-          </div>
-        )}
+        {state.loading && <Loading />}
         <GoBack />
         {state.news}
       </div>
@@ -87,18 +78,6 @@ const NewsStyle = styled(News)`
     &::-webkit-scrollbar {
       display: none;
     }
-  }
-  .loading {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    background-color: #222;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 `;
 

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactLoading from 'react-loading';
 
 import FormBuilder from '../../../components/FormBuilder/FormBuilder';
@@ -15,19 +15,20 @@ import SIGNIN_FORM from './signinForm';
 import { onSignin } from '../../../store/actions/index';
 
 const SignIn = (props) => {
-  const { className, history, onSignin, token, loading } = props;
+  const { className, history, token } = props;
+  const loading = useSelector((state) => state.auth.loading);
+  const dispatch = useDispatch();
   const { handleSubmit, register, errors, watch } = useForm();
 
+  console.log(history);
+
   useEffect(() => {
-    // 如有 token 且從外部連結進入登入頁
-    // 登入成功後跳回首頁
-    // 如有 token 且是從內部連結進入
-    // 登入成功後返回上一頁
+    // 如有 token 且從外部連結進入登入頁，跳回首頁
+    // 如有 token 且是從內部連結進入，返回上一頁
     if (token) {
-      const action = history.action;
-      if (action === 'POP') {
+      if (history.action === 'POP') {
         history.push('/');
-      } else if (action === 'PUSH') {
+      } else {
         history.goBack();
       }
     }
@@ -38,7 +39,7 @@ const SignIn = (props) => {
       <GoBack />
       <div className="wrap">
         <div className="title">登入</div>
-        <form onSubmit={handleSubmit(onSignin)}>
+        <form onSubmit={handleSubmit((data) => dispatch(onSignin(data)))}>
           <FormBuilder
             formData={SIGNIN_FORM}
             register={register}
@@ -66,19 +67,6 @@ const SignIn = (props) => {
       </div>
     </div>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    loading: state.auth.loading,
-    token: state.auth.token,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSignin: (data) => dispatch(onSignin(data)),
-  };
 };
 
 const SignInStyle = styled(SignIn)`
@@ -137,7 +125,4 @@ const SignInStyle = styled(SignIn)`
   }
 `;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withErrorHandler(SignInStyle, axiosAC));
+export default withErrorHandler(SignInStyle, axiosAC);

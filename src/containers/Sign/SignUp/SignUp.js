@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactLoading from 'react-loading';
 
 import FormBuilder from '../../../components/FormBuilder/FormBuilder';
@@ -15,7 +15,9 @@ import { onSignup } from '../../../store/actions/index';
 import SIGNUP_FORM from './signupForm';
 
 const SignUp = (props) => {
-  const { className, onSignup, loading, token } = props;
+  const { className, token } = props;
+  const loading = useSelector((state) => state.auth.loading);
+  const dispatch = useDispatch();
   const { handleSubmit, register, errors, watch, setError } = useForm();
 
   const onSubmit = (data) => {
@@ -25,7 +27,7 @@ const SignUp = (props) => {
     if (signupPsw !== signupConfirmPsw) {
       return setError('confirm_password');
     }
-    onSignup(data);
+    dispatch(onSignup(data));
   };
 
   return (
@@ -62,19 +64,6 @@ const SignUp = (props) => {
       </div>
     </div>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    loading: state.auth.loading,
-    token: state.auth.token,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSignup: (data) => dispatch(onSignup(data)),
-  };
 };
 
 const SignUpStyle = styled(SignUp)`
@@ -133,7 +122,4 @@ const SignUpStyle = styled(SignUp)`
   }
 `;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withErrorHandler(SignUpStyle, axiosAC));
+export default withErrorHandler(SignUpStyle, axiosAC);

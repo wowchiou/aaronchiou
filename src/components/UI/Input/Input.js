@@ -26,6 +26,7 @@ const Input = (props) => {
             type={type}
             placeholder={placeholder}
             ref={register}
+            autoComplete="on"
           />
         );
     }

@@ -6,20 +6,20 @@ import Button from '../../../components/UI/Button/Button';
 
 import socket from '../../../shared/socket';
 
-const ChatRoom = ({ className }) => {
+const ChatRoom = ({ className, token }) => {
   const emitMessageHanlder = (e) => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    socket.get().on('io test', (data) => {
-      console.log(data);
-    });
+  // useEffect(() => {
+  //   socket.get().on('io test', (data) => {
+  //     console.log(data);
+  //   });
 
-    socket.get().on('socket test', (data) => {
-      console.log(data);
-    });
-  }, []);
+  //   socket.get().on('socket test', (data) => {
+  //     console.log(data);
+  //   });
+  // }, []);
 
   return (
     <div className={`chatRoom ${className}`}>
@@ -47,7 +47,7 @@ const ChatRoom = ({ className }) => {
           <div className="message"></div>
           <form className="input_box">
             <input type="text" placeholder="請輸入訊息..." />
-            <Button clicked={emitMessageHanlder}>送出</Button>
+            {/* <Button clicked={emitMessageHanlder}>送出</Button> */}
           </form>
         </div>
       </div>

@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Fade from 'react-reveal/Fade';
 import styled from 'styled-components';
 
 import playList from './playList';
 
-const Play = ({ className }) => {
-  const { url } = useRouteMatch();
-
+const Play = ({ className, match }) => {
   const renderList = (list) => {
     return list.map((itm, idx) => {
       const content = (
@@ -24,21 +22,20 @@ const Play = ({ className }) => {
         </div>
       );
 
-      // 判斷資料裡的type屬性對應需渲染route <link>還是普通<a>連結
-      let link = '';
-      if (itm.type === 'self') {
-        link = (
-          <Link
-            className="link"
-            to={`${url}${itm.url}`}
-            style={{
-              backgroundImage: `url(${itm.img})`,
-            }}
-          >
-            {content}
-          </Link>
-        );
-      } else if (itm.type === 'blank') {
+      let link = (
+        <Link
+          className="link"
+          to={`${match.url}${itm.url}`}
+          style={{
+            backgroundImage: `url(${itm.img})`,
+          }}
+        >
+          {content}
+        </Link>
+      );
+
+      // 如果連結是外導連結,改為<a> tag
+      if (itm.type === 'blank') {
         link = (
           <a
             className="link"

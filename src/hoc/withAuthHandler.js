@@ -1,23 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 const withAuthHandler = (WrappedComponents) => {
-  return connect(mapStateToProps)((props) => {
-    const { token, history } = props;
-    if (!token) {
-      history.push('/signin');
-    }
+  return (props) => {
+    console.log(props.history);
+    !props.token && props.history.push('/signin');
     return (
       <>
+        {/* {!props.token && <Redirect to="/signin" />} */}
         <WrappedComponents {...props} />
       </>
     );
-  });
-};
-
-const mapStateToProps = (state) => {
-  return {
-    token: state.auth.token,
   };
 };
 

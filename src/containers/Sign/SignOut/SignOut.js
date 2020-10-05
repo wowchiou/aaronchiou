@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { onSignout } from '../../../store/actions/index';
 
-const SignOut = ({ className, onSignout }) => {
+const SignOut = ({ className }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     localStorage.removeItem('ACToken');
-    onSignout();
+    dispatch(onSignout());
   }, [onSignout]);
 
   return (
@@ -21,12 +23,6 @@ const SignOut = ({ className, onSignout }) => {
       </div>
     </div>
   );
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSignout: () => dispatch(onSignout()),
-  };
 };
 
 const SignOutStyle = styled(SignOut)`
@@ -57,4 +53,4 @@ const SignOutStyle = styled(SignOut)`
   }
 `;
 
-export default connect(null, mapDispatchToProps)(SignOutStyle);
+export default SignOutStyle;

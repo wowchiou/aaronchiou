@@ -1,16 +1,13 @@
 import React from 'react';
-import { Switch, Route, Redirect, withRouter, Link } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { connect } from 'react-redux';
 
 import Navigation from '../../components/Navigation/Navigation';
-import About from '../About/About';
-import Play from '../Play/Play';
-import Contact from '../Contact/Contact';
 
 const Home = (props) => {
-  const { className, location, history, token } = props;
+  const { className, location, history, routes, token } = props;
+
   const signBtn = token ? (
     <Link to="/signout" className="sign">
       登出
@@ -42,9 +39,17 @@ const Home = (props) => {
             timeout={500}
           >
             <Switch location={location}>
-              <Route path="/play" component={Play} />
-              <Route path="/contact" component={Contact} />
-              <Route path="/" exact component={About} />
+              {routes.map((route, idx) => (
+                <Route
+                  exact={route.exact}
+                  path={route.path}
+                  key={idx}
+                  routes={route.routes}
+                  render={(props) => {
+                    return <route.component {...props} />;
+                  }}
+                />
+              ))}
               <Redirect to="/error404" />
             </Switch>
           </CSSTransition>
@@ -52,12 +57,6 @@ const Home = (props) => {
       </main>
     </div>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    token: state.auth.token,
-  };
 };
 
 const HomeStyle = styled(Home)`
@@ -171,4 +170,4 @@ const HomeStyle = styled(Home)`
   /* transition group css end */
 `;
 
-export default connect(mapStateToProps)(withRouter(HomeStyle));
+export default HomeStyle;
